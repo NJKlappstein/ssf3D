@@ -59,7 +59,7 @@ plot_dKent <- function(kappa, rho) {
           mode = 'markers', 
           color = ~density,
           marker = list(#color = "rgba(0, 0, 0, 0.2)", 
-            size = 2, symbol = "circle")) %>%
+            size = 2, symbol = "circle")) |>
     layout(scene = list(xaxis=axx,yaxis=axy,zaxis=axz, 
                         aspectmode = "manual",
                         aspectratio = list(x = 1, y = 1, z = 1)))

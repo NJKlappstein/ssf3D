@@ -35,10 +35,10 @@ plot_geodesics <- function(data, format = "df") {
           type = 'scatter3d', 
           mode = 'markers', 
           marker = list(color = "rgba(0, 0, 0, 0.01)", 
-                        size = 0.5, symbol = "circle")) %>% 
+                        size = 0.5, symbol = "circle")) |> 
     layout(scene = list(xaxis=axx,yaxis=axy,zaxis=axz, 
                         aspectmode = "manual",
-                        aspectratio = list(x = 1, y = 1, z = 1))) %>% 
+                        aspectratio = list(x = 1, y = 1, z = 1))) |> 
     add_trace(x = u_df$x, y = u_df$y, z = u_df$z, 
               type = 'scatter3d', 
               marker = list(color = "rgba(0, 0, 0, 0.5)", size = 1.5), 

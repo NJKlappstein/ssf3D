@@ -39,7 +39,7 @@ plot_data <- function(data, scale = FALSE) {
           type = 'scatter3d', 
           mode = 'markers+lines', 
           marker = list(size = 1.75), 
-          split = ~ID) %>% 
+          split = ~ID) |> 
     layout(scene = list(xaxis = list(range = xlim),
                         yaxis = list(range = ylim),
                         zaxis = list(range = zlim),
