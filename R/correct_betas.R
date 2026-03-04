@@ -10,7 +10,7 @@
 
 correct_betas <- function(model, data) {
   # estimated betas
-  beta_est <- coefficients(fit)
+  beta_est <- coefficients(model)
   
   # figure out how points were sampled (i.e., what needs correcting)
   atts <- c(is.null(attributes(data)$shape), 
