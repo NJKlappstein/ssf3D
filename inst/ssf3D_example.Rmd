@@ -1,0 +1,110 @@
+---
+title: "Step selection analysis in three dimensions"
+author: "Natasha Klappstein, Théo Michelot, Ron Togunov, Joanna Mills Flemming"
+date: "`r Sys.Date()`"
+output: 
+  pdf_document
+header-includes:
+  \renewcommand{\baselinestretch}{1.2}
+fontsize: 12pt
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, error = FALSE, warning = FALSE,
+  comment = NA
+)
+```
+
+In this document, we illustrate the workflow of the analysis of (simulated) three-dimensional tracking data using a step selection function. The steps of the analysis are very similar to the two-dimensional case, but we use functions from the package ssf3D.
+
+```{r load}
+library(ssf3D) # for data processing and analysis
+library(terra) # for raster stack
+library(lubridate) # to process dates
+library(survival) # to fit the SSF
+```
+
+## Data
+
+We start from a three-dimensional movement track, which contains x/y/z coordinates at regular time intervals. Here, we do not cover possible pre-processing steps, for example to obtain temporally regular positions using interpolation or a state-space model. The data frame also has columns for `ID` (track identifier) and `time`.
+
+```{r track-data}
+# Load tracking data
+tracks <- read.csv("sim_data.csv")
+tracks$time <- ymd_hms(tracks$time)
+head(tracks)
+```
+
+We also have a three-dimensional environmental variable. This is simulated data, but in a real analysis, this could be something like wind, temperature, or any other spatial variable measured over a three-dimensional grid. In two dimensions, spatial data is typically stored as in raster format. Here, we use a raster stack from the terra package, where the layers range across the third (vertical) dimension. We load the raster stack from a tif file, and set the `depth` attribute to the vertical coordinates of the raster layer (used later to extract).
+
+```{r cov-data}
+# Load spatial covariate data
+r_stack <- rast("3D_raster.tif")
+depth(r_stack) <- 1:nlyr(r_stack)
+r_stack
+```
+
+## Generate random points
+
+We use the function `pred_data()` from ssf3D to generate random points for the step selection analysis. This is analogous to the random (or "control") points used in two dimensions, but here they are three-dimensional points. We specify `distr = "gamma"` to indicate that distances between the start point of each step and the random points follow a gamma distribution (for which parameters are estimated from the observed data). By default, random points are generated with uniform bearings.
+
+```{r prep-data}
+# Generate random points and get movement variables
+data <- prep_data(data = tracks, n_random = 50, distr = "gamma")
+data[1:5, 1:6]
+```
+
+The new data frame has columns for `stratum`, which groups each observed position with matched random points, and `obs`, which is 1 for observed positions and 0 for random points.
+
+In addition to generating random points, the function `prep_data()` also calculated all movement variables required for the analysis. In particular, `step` is the step length, `omega` is the geodesic length, and `delta` is the geodesic orientation. We will use those three variables later to model step lengths with a gamma distribution and the geodesics with a Kent distribution.
+
+## Get covariates
+
+We need to extract the spatial covariate at all observed and random positions, and we do this using the function `extract_3d()` from the package ssf3D. This is similar to the function `extract()` in the packages raster and terra, but it also uses the vertical coordinate for a covariate measured in three dimensions.
+
+```{r get-cov1}
+# Extract spatial covariate values
+data$cov <- extract_3d(r_stack, data[,c("x", "y", "z")])
+```
+
+We also calculate the movement variable $\sin(\omega)^2 \cos(2\delta)$, which we will include to model geodesics with a Kent distribution.
+
+```{r get-cov2}
+# Compute transformed variable for Kent distribution
+data$omega_delta <- sin(data$omega) * sin(data$omega) * cos(2 * data$delta)
+```
+
+## Fit step selection function
+
+We fit the step selection function using conditional logistic regression, implemented in the `clogit()` function of the survival package. The formula includes `step` and `log(step)` to model step lengths with a gamma distribution, `cos(omega)` and `omega_delta` to model geodesics with a Kent distribution, and `cov` to estimate habitat selection. We also include the term `strata(stratum)` to specify the grouping of observed and random points.
+
+```{r fit-ssf}
+fit <- clogit(obs ~ step + log(step) + 
+                cos(omega) + omega_delta + 
+                cov +
+                strata(stratum), 
+              data = data)
+
+fit
+```
+
+The fitted model object includes estimated coefficients and standard errors.
+
+## Model outputs
+
+### Habitat selection
+
+
+
+### Movement parameters
+
+Like in two dimensions, the interpretation of movement parameters is not straightforward when random points are not spatially uniform. Indeed, the estimated parameters measure a deviation between the distribution of the random points and the distribution of observed movement variables. The ssf3D package includes a function to correct the estimates to account for the distribution of random points, and a function to obtain the estimated parameters of the implied gamma distribution.
+
+```{r get-params}
+beta <- correct_betas(model = fit, data = data)
+beta
+
+gamma_par <- transform_betas(beta_step = beta["step"], beta_logstep = beta["log(step)"])
+gamma_par
+```

@@ -51,3 +51,5 @@ rsconnect/
 *.DS_Store
 data/3D_raster.tif
 *.Rproj
+inst/*.csv
+inst/*.tif
