@@ -11,7 +11,7 @@ cov_df(formula, cov_data, data, dim = 2)
 
 \item{cov_data}{list of covariate rasters}
 
-\item{data}{location data (either matrix or dataframe with x, y)}
+\item{data}{location data (either matrix or dataframe with x, y, z)}
 
 \item{dim}{how many dimensions is the covariate data (2 or 3)}
 }

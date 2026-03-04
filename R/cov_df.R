@@ -2,7 +2,7 @@
 #' 
 #' @param formula model formula with covariate names
 #' @param cov_data list of covariate rasters
-#' @param data location data (either matrix or dataframe with x, y)
+#' @param data location data (either matrix or dataframe with x, y, z)
 #' @param dim how many dimensions is the covariate data (2 or 3)
 #' 
 #' @return Data frame with additional covariate columns
@@ -15,6 +15,8 @@ cov_df <- function(formula, cov_data, data, dim = 2) {
   
   if(is.data.frame(data)) {
     xyz <- matrix(c(data$x, data$y, data$z), ncol = 3)
+  } else {
+    xyz <- data
   }
   
   # get non-movement covariates
