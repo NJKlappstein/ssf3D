@@ -6,6 +6,8 @@
 #' coordinates
 #' 
 #' @return Vector of covariate values at points.
+#' 
+#' @export
 extract_3d <- function(raster_stack, points) {
   # Grid of z values in raster stack
   z_grid <- depth(raster_stack)
