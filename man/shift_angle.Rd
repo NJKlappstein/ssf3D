@@ -9,6 +9,9 @@ shift_angle(angles)
 \arguments{
 \item{angles}{Vector of angles}
 }
+\value{
+Vector of shifted angles
+}
 \description{
 Shift angles to be between -pi and pi
 }

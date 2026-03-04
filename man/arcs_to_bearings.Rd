@@ -2,19 +2,23 @@
 % Please edit documentation in R/coordinate_transformations.R
 \name{arcs_to_bearings}
 \alias{arcs_to_bearings}
-\title{Function to transform arcs to bearings}
+\title{Transform arcs to bearings}
 \usage{
 arcs_to_bearings(omega, delta, hbear0, vbear0)
 }
 \arguments{
-\item{omega}{arc size at time t}
+\item{omega}{arc size between times t and t+1}
 
-\item{delta}{arc orientation at time t}
+\item{delta}{arc orientation between times t and t+1}
 
-\item{hbear0}{previous horizontal bearing (at time t-1)}
+\item{hbear0}{previous horizontal bearing (between times t-1 and t)}
 
-\item{vbear0}{previous vertical bearing (at time t-1)}
+\item{vbear0}{previous vertical bearing (between times t-1 and t)}
+}
+\value{
+Data frame with columns 'hbear' (horizontal bearing) and
+'vbear' (vertical bearing)
 }
 \description{
-Function to transform arcs to bearings
+Transform arcs to bearings
 }

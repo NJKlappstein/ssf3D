@@ -2,8 +2,7 @@
 % Please edit documentation in R/rKent.R
 \name{rKent}
 \alias{rKent}
-\title{Function to simulate samples from a kent distribution 
-(assumes mean = (0,0,1), major = (1,0,0), minor = (0,1,0))}
+\title{Simulate from a Kent distribution}
 \usage{
 rKent(n, kappa, rho)
 }
@@ -14,7 +13,13 @@ rKent(n, kappa, rho)
 
 \item{rho}{ovalness parameter}
 }
+\value{
+Samples from a Kent distribution (Cartesian coordinates)
+}
 \description{
-Function to simulate samples from a kent distribution 
-(assumes mean = (0,0,1), major = (1,0,0), minor = (0,1,0))
+Simulate from a Kent distribution
+}
+\details{
+This function assumes mean = (0,0,1), 
+major = (1,0,0), and minor = (0,1,0)
 }

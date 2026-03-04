@@ -1,11 +1,23 @@
-##' Function to simulate a movement track from a 3D correlated random walk
-##' 
-##' @param xyz0 starting location of the track (default = c(0, 0, 0))
-##' @param n_locs number of locations to simulate
-##' @param type type of correlated random walk (options: "rw", "vMF", "kent", "bcrw")
-##' @param step_par parameters of step length distribution in format c(shape, scale) 
-##' @param kappa concentration parameter 
 
+#' Simulate a movement track from a 3D correlated random walk
+#' 
+#' @details
+#' This uses sim_ssf(), automatically defining the formula based on the
+#' type of correlated random walk
+#' 
+#' @param xyz0 starting location of the track (default = c(0, 0, 0))
+#' @param n_locs number of locations to simulate
+#' @param type type of correlated random walk (options: "rw", "vMF", 
+#' "kent", "bcrw")
+#' @param step_par parameters of step length distribution in format 
+#' c(shape, scale) 
+#' @param kappa concentration parameter 
+#' @param rho ovalness parameter
+#' @param kappa2 concentration around vertical bearing
+#' 
+#' @return Data frame of simulated positions
+#' 
+#' @export
 
 sim_crw <- function(xyz0 = c(0, 0, 0), 
                     n_locs, 

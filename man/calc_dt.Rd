@@ -13,6 +13,9 @@ calc_dt(data, units = "hours", dir = "next")
 
 \item{dir}{calculate difference to next or previous loc? (default = "next")}
 }
+\value{
+Data frame with new 'dt' column
+}
 \description{
 Calculate difference in time
 }

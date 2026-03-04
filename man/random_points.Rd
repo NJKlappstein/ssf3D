@@ -17,6 +17,11 @@ and uniform turning angles ("gamma") or gamma steps and kent arcs ("gamma+kent")
 
 \item{par}{parameters of the sampling distribution}
 }
+\value{
+Data frame of observed and random points, including columns for
+'stratum' (stratum index), 'obs' (1 if observed point, 0 if random), 
+and movement variables such as 'step', 'vbear', 'hbear', 'omega' and 'delta'
+}
 \description{
 Simulate random locations for model fitting
 }

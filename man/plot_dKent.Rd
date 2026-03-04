@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_dKent.R
 \name{plot_dKent}
 \alias{plot_dKent}
-\title{Function to plot density of a Kent distribution on a sphere}
+\title{Plot density of a Kent distribution on a sphere}
 \usage{
 plot_dKent(kappa, rho)
 }
@@ -15,5 +15,5 @@ plot_dKent(kappa, rho)
 plot of the Kent density on a unit sphere
 }
 \description{
-Function to plot density of a Kent distribution on a sphere
+Plot density of a Kent distribution on a sphere
 }

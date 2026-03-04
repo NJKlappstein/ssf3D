@@ -1,17 +1,24 @@
-##' Function to simulate a movement track from a 3D SSF
-##' 
-##' @param xyz0 starting location of the track
-##' @param n_zeros number of proposed endpoints
-##' @param n_locs number of locations to simulate
-##' @param formula SSF formula
-##' @param betas SSF parameters (assumes the order beta_step, beta_logstep, beta_omega, beta_omegadelta)
-##' @param R radius of the sphere (in which to generate endpoints, only needed for uniform)
-##' @param pts_dist Distriution of distances (default = "gamma", also supports "uniform")
-##' @param cov_2D named list of rasters of 2D covariate data (optional)
-##' @param cov_2D named list of raster stacks of 3D covariate data (optional)
-##' @param print whether or not to print progress bar
-##' @param log whether or not to use log in the ssf probs
-
+#' Simulate a movement track from a 3D SSF
+#' 
+#' @param xyz0 starting location of the track
+#' @param n_zeros number of proposed endpoints
+#' @param n_locs number of locations to simulate
+#' @param formula SSF formula
+#' @param betas SSF parameters (assumes the order beta_step, beta_logstep, 
+#' beta_omega, beta_omegadelta)
+#' @param R radius of the sphere (in which to generate endpoints, only 
+#' needed for uniform)
+#' @param pts_dist Distriution of distances (default = "gamma", also supports 
+#' "uniform")
+#' @param cov_2D named list of rasters of 2D covariate data (optional)
+#' @param cov_2D named list of raster stacks of 3D covariate data (optional)
+#' @param print whether or not to print progress bar
+#' @param log whether or not to use log in the ssf probs
+#' 
+#' @return Data frame with columns "x", "y", "z", "step", "vbear", 
+#' "hbear", "omega", and "delta"
+#'
+#' @export
 
 sim_ssf <- function(xyz0, 
                     n_zeros, 
@@ -150,11 +157,5 @@ sim_ssf <- function(xyz0,
   colnames(xyz) <- c("x", "y", "z", "step", 
                      "vbear", "hbear", "omega", "delta")
   xyz <- as.data.frame(xyz[-1,])
-}
-
-
-logsumexp <- function(x) {
-  xmax <- max(x)
-  val <- xmax + log(sum(exp(x - xmax)))
-  return(val)
+  return(xyz)
 }

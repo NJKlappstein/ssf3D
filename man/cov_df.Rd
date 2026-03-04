@@ -2,7 +2,7 @@
 % Please edit documentation in R/cov_df.R
 \name{cov_df}
 \alias{cov_df}
-\title{Create covariate dataframe}
+\title{Add covariates to data based on model formula}
 \usage{
 cov_df(formula, cov_data, data, dim = 2)
 }
@@ -15,6 +15,9 @@ cov_df(formula, cov_data, data, dim = 2)
 
 \item{dim}{how many dimensions is the covariate data (2 or 3)}
 }
+\value{
+Data frame with additional covariate columns
+}
 \description{
-Create covariate dataframe
+Add covariates to data based on model formula
 }

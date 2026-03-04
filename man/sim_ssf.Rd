@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_ssf.R
 \name{sim_ssf}
 \alias{sim_ssf}
-\title{Function to simulate a movement track from a 3D SSF}
+\title{Simulate a movement track from a 3D SSF}
 \usage{
 sim_ssf(
   xyz0,
@@ -27,11 +27,14 @@ sim_ssf(
 
 \item{formula}{SSF formula}
 
-\item{betas}{SSF parameters (assumes the order beta_step, beta_logstep, beta_omega, beta_omegadelta)}
+\item{betas}{SSF parameters (assumes the order beta_step, beta_logstep, 
+beta_omega, beta_omegadelta)}
 
-\item{R}{radius of the sphere (in which to generate endpoints, only needed for uniform)}
+\item{R}{radius of the sphere (in which to generate endpoints, only 
+needed for uniform)}
 
-\item{pts_dist}{Distriution of distances (default = "gamma", also supports "uniform")}
+\item{pts_dist}{Distriution of distances (default = "gamma", also supports 
+"uniform")}
 
 \item{cov_2D}{named list of raster stacks of 3D covariate data (optional)}
 
@@ -39,6 +42,10 @@ sim_ssf(
 
 \item{log}{whether or not to use log in the ssf probs}
 }
+\value{
+Data frame with columns "x", "y", "z", "step", "vbear", 
+"hbear", "omega", and "delta"
+}
 \description{
-Function to simulate a movement track from a 3D SSF
+Simulate a movement track from a 3D SSF
 }

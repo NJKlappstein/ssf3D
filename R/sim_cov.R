@@ -7,6 +7,10 @@
 #' @param window_size Diameter of moving window spherical kernel
 #' 
 #' @return 3D array of covariate values, with nx rows, ny columns, and nz layers
+#' 
+#' @export
+#' @importFrom imager as.cimg convolve
+
 sim_cov <- function(nx = 100, ny = 100, nz = 20, window_size = 5) {
   if(window_size %% 2 == 0) {
     window_size <- window_size + 1
@@ -29,11 +33,11 @@ sim_cov <- function(nx = 100, ny = 100, nz = 20, window_size = 5) {
   grid3d$dist <- sqrt(grid3d$i^2 + grid3d$j^2 + grid3d$k^2)
   kernel <- array(as.integer(grid3d$dist <= radius), 
                   dim = c(rep(window_size, 3), 1))
-  kernel <- imager::as.cimg(kernel)
+  kernel <- as.cimg(kernel)
   
   # Apply moving average / convolution using imager
-  input_cimg <- imager::as.cimg(noise)
-  output_cimg <- imager::convolve(input_cimg, kernel)
+  input_cimg <- as.cimg(noise)
+  output_cimg <- convolve(input_cimg, kernel)
   
   # Convert back to array
   smooth <- as.array(output_cimg)
@@ -61,28 +65,32 @@ sim_cov <- function(nx = 100, ny = 100, nz = 20, window_size = 5) {
 #' @param depth Vector of depths (z values)
 #' 
 #' @return SpatRaster stack with one raster for each array layer
+#'
+#' @export
+#' @importFrom terra rast ext names depth
+
 array_to_stack <- function(array, xmin, xmax, ymin, ymax, depth) {
-    raster_list <- list()
-    ext <- ext(xmin, xmax, ymin, ymax)
-    dims <- dim(array)
+  raster_list <- list()
+  ext <- ext(xmin, xmax, ymin, ymax)
+  dims <- dim(array)
+  
+  # Convert each array slice to a raster layer
+  for (k in 1:dims[3]) {
+    # Transpose layer to get into raster orientation
+    mat <- t(array[,,k])
     
-    # Convert each array slice to a raster layer
-    for (k in 1:dims[3]) {
-        # Transpose layer to get into raster orientation
-        mat <- t(array[,,k])
-        
-        # Create raster from matrix
-        raster_list[[k]] <- rast(nrows = nrow(mat),
-                                 ncols = ncol(mat),
-                                 extent = ext,
-                                 vals = as.vector(mat),
-                                 crs = "")
-    }
-    
-    # Combine all layers into a stack
-    raster_stack <- rast(raster_list)
-    names(raster_stack) <- depth
-    depth(raster_stack) <- depth
-    return(raster_stack)
+    # Create raster from matrix
+    raster_list[[k]] <- rast(nrows = nrow(mat),
+                             ncols = ncol(mat),
+                             extent = ext,
+                             vals = as.vector(mat),
+                             crs = "")
+  }
+  
+  # Combine all layers into a stack
+  raster_stack <- rast(raster_list)
+  names(raster_stack) <- depth
+  depth(raster_stack) <- depth
+  return(raster_stack)
 }
 

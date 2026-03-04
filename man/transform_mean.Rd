@@ -11,6 +11,9 @@ transform_mean(mean, sd)
 
 \item{sd}{standard deviation}
 }
+\value{
+beta_step, beta_logstep, shape, and scale
+}
 \description{
 Transform mean/sd into betas and shape/scale
 }

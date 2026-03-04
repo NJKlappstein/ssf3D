@@ -1,11 +1,14 @@
 
-##' Function to simulate samples from a kent distribution 
-##' (assumes mean = (0,0,1), major = (1,0,0), minor = (0,1,0))
-##' 
-##' @param n number of samples
-##' @param kappa concentration parameter
-##' @param rho ovalness parameter
-##' 
+#' Simulate from a Kent distribution 
+#' 
+#' @details This function assumes mean = (0,0,1), 
+#' major = (1,0,0), and minor = (0,1,0)
+#' 
+#' @param n number of samples
+#' @param kappa concentration parameter
+#' @param rho ovalness parameter
+#' 
+#' @return Samples from a Kent distribution (Cartesian coordinates)
 rKent <- function(n, kappa, rho) {
   
   Gamma <- matrix(c(1, 0, 0,

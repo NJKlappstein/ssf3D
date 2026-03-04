@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_crw.R
 \name{sim_crw}
 \alias{sim_crw}
-\title{Function to simulate a movement track from a 3D correlated random walk}
+\title{Simulate a movement track from a 3D correlated random walk}
 \usage{
 sim_crw(
   xyz0 = c(0, 0, 0),
@@ -19,12 +19,25 @@ sim_crw(
 
 \item{n_locs}{number of locations to simulate}
 
-\item{type}{type of correlated random walk (options: "rw", "vMF", "kent", "bcrw")}
+\item{type}{type of correlated random walk (options: "rw", "vMF", 
+"kent", "bcrw")}
 
-\item{step_par}{parameters of step length distribution in format c(shape, scale)}
+\item{step_par}{parameters of step length distribution in format 
+c(shape, scale)}
 
 \item{kappa}{concentration parameter}
+
+\item{rho}{ovalness parameter}
+
+\item{kappa2}{concentration around vertical bearing}
+}
+\value{
+Data frame of simulated positions
 }
 \description{
-Function to simulate a movement track from a 3D correlated random walk
+Simulate a movement track from a 3D correlated random walk
+}
+\details{
+This uses sim_ssf(), automatically defining the formula based on the
+type of correlated random walk
 }

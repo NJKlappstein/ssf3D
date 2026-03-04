@@ -7,12 +7,16 @@
 #' and uniform turning angles ("gamma") or gamma steps and kent arcs ("gamma+kent")
 #' @param par parameters of the sampling distribution
 #'
+#' @return Data frame of observed and random points, including columns for
+#' 'stratum' (stratum index), 'obs' (1 if observed point, 0 if random), 
+#' and movement variables such as 'step', 'vbear', 'hbear', 'omega' and 'delta'
+#'
 #' @export
 
 random_points <- function(obs,
-                         n_random,
-                         distr = "gamma", 
-                         par = NULL)
+                          n_random,
+                          distr = "gamma", 
+                          par = NULL)
 {
   # Calculate movement variables
   obs <- var3D(obs)
@@ -33,7 +37,7 @@ random_points <- function(obs,
         fit_kent <- kent.mle(u[-NAs,]) 
       } else {
         fit_kent <- kent.mle(u)
-        }
+      }
       kappa <- fit_kent$param["kappa"]
       rho <- fit_kent$param["beta"]
     }

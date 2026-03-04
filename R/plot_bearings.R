@@ -1,10 +1,12 @@
-##' Function to plot orthodromic arc (i.e., 3D turning angles) as pts on a sphere
-##' 
-##' @param data data frame with columns: omega, delta OR a matrix of coordinates
-##' omega is the arc size and delta is the arc orientation
-##' @param format Format of data (described above). Options are "matrix" or "df"
-##' 
-##' @importFrom plotly plot_ly layout add_trace
+#' Plot 3D bearings as points on a sphere
+#' 
+#' @param data data frame with columns 'vbear' and 'hbear', OR a matrix 
+#' of 3D coordinates
+#' @param format Format of data (described above). Options are "matrix" or "df"
+#' 
+#' @export
+#' @importFrom plotly plot_ly layout add_trace
+
 plot_bearings <- function(data, color = NULL, format = "df") {
   # grid of all points on the sphere
   border <- data.frame(omega = seq(0, pi, length.out = 250), 
@@ -29,15 +31,15 @@ plot_bearings <- function(data, color = NULL, format = "df") {
   axz <- list(nticks = 4,range = c(-1,1))
   
   # plot background sphere
-  plotly::plot_ly(border,
-                  x = ~x, y = ~y, z = ~z, 
-                  type = 'scatter3d', 
-                  mode = 'markers', 
-                  marker = list(color = "rgba(0, 0, 0, 0.01)", 
-                                size = 0.5, symbol = "circle")) %>% 
-    plotly::layout(scene = list(xaxis=axx,yaxis=axy,zaxis=axz, 
-                                aspectmode = "manual",
-                                aspectratio = list(x = 1, y = 1, z = 1))) %>% 
+  plot_ly(border,
+          x = ~x, y = ~y, z = ~z, 
+          type = 'scatter3d', 
+          mode = 'markers', 
+          marker = list(color = "rgba(0, 0, 0, 0.01)", 
+                        size = 0.5, symbol = "circle")) %>% 
+    layout(scene = list(xaxis=axx,yaxis=axy,zaxis=axz, 
+                        aspectmode = "manual",
+                        aspectratio = list(x = 1, y = 1, z = 1))) %>% 
     add_trace(x = v_df$x, y = v_df$y, z = v_df$z, 
               type = 'scatter3d', 
               marker = list(color = "rgba(0, 0, 0, 0.5)", size = 1.5), 

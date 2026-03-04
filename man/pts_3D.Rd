@@ -12,11 +12,17 @@ pts_3D(n, xyz0, dist = "gamma", step_par, angle_par = NULL)
 \item{xyz0}{starting coordinates (x, y, z)}
 
 \item{dist}{distributions of points ("uniform" for spatially uniform points, 
-"gamma" for gamma steps and uniform angles, "gamma+kent" for gamma steps and kent angles)}
+"gamma" for gamma steps and uniform angles, "gamma+kent" for gamma steps 
+and kent angles)}
 
-\item{step_par}{parameters for the step length distribution (needs R for uniform, shape and scale for gamma)}
+\item{step_par}{parameters for the step length distribution (needs R for 
+uniform, shape and scale for gamma)}
 
-\item{angle_par}{parameters of the kent distribution (needs kappa, rho, hbear0, and vbear0)}
+\item{angle_par}{parameters of the kent distribution (needs kappa, rho,
+hbear0, and vbear0)}
+}
+\value{
+Data frame of random points and associated movement variables
 }
 \description{
 Function to generate 3D points around a starting coordinate

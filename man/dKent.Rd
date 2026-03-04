@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_dKent.R
 \name{dKent}
 \alias{dKent}
-\title{Function to calculate density of a Kent distribution}
+\title{Density of a Kent distribution}
 \usage{
 dKent(kappa, rho, omega, delta, log = FALSE)
 }
@@ -21,5 +21,5 @@ dKent(kappa, rho, omega, delta, log = FALSE)
 density or log density
 }
 \description{
-Function to calculate density of a Kent distribution
+Density of a Kent distribution
 }

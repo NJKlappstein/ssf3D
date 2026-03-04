@@ -8,9 +8,12 @@ and (potentially) a Kent arc distribution}
 correct_betas(model, data)
 }
 \arguments{
-\item{model}{fitted model output}
+\item{model}{fitted model output, as returned by survival::clogit()}
 
 \item{data}{data used to fit model}
+}
+\value{
+Corrected model coefficients
 }
 \description{
 Correct estimated parameters for a gamma step length distribution 

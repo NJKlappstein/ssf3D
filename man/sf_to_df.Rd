@@ -12,12 +12,9 @@ sf_to_df(data, coords = c("X", "Y"))
 \item{coords}{vector of X and Y names}
 }
 \value{
-Returns data.frame with all columns, sf geometry dropped, and replaced with coord columns
+Data frame with all columns, sf geometry dropped, 
+and replaced with coord columns
 }
 \description{
-Brief description of the function.
-}
-\examples{
-# Example usage of the function
-myFunction(arg1, arg2)
+Convert SF to data.frame
 }

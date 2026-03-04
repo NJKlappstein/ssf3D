@@ -11,6 +11,9 @@ transform_par(shape, scale)
 
 \item{scale}{scale parameter}
 }
+\value{
+beta_step, beta_logstep, mean, and sd
+}
 \description{
 Transform shape and scale into betas and mean/sd
 }

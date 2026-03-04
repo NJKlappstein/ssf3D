@@ -2,11 +2,7 @@
 % Please edit documentation in R/coordinate_transformations.R
 \name{get_cartesian}
 \alias{get_cartesian}
-\title{Function to get Cartesian coordinates from spherical coordinates based
-on the formulas
-cart1 = sin(coord1)cos(coord2),
-cart2 = sin(coord1)sin(coord2), 
-cart3 = cos(coord1)}
+\title{Get Cartesian coordinates from spherical coordinates}
 \usage{
 get_cartesian(coord1, coord2, type = "geodesics")
 }
@@ -15,12 +11,28 @@ get_cartesian(coord1, coord2, type = "geodesics")
 
 \item{coord2}{second spherical coordinate}
 
-\item{type}{whether it is bearings or geodesics}
+\item{type}{either "bearings" or "geodesics"}
+}
+\value{
+Matrix with three columns for Cartesian coordinates
 }
 \description{
-Function to get Cartesian coordinates from spherical coordinates based
-on the formulas
-cart1 = sin(coord1)cos(coord2),
-cart2 = sin(coord1)sin(coord2), 
-cart3 = cos(coord1)
+Get Cartesian coordinates from spherical coordinates
+}
+\details{
+The formulas depends on the 'type' argument. If type = "geodesics",
+coord1 measures the "colatitude" angle between 0 and pi, and the 
+transformations are:
+\itemize{
+\item cart1 = sin(coord1)cos(coord2)
+\item cart2 = sin(coord1)sin(coord2)
+\item cart3 = cos(coord1)
+}
+If type = "bearings", coord1 is the "latitude" angle between -pi/2 and pi/2,
+and the transformations are: 
+\itemize{
+\item cart1 = cos(coord1)cos(coord2)
+\item cart2 = cos(coord1)sin(coord2)
+\item cart3 = sin(coord1)
+}
 }

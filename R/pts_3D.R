@@ -1,11 +1,18 @@
-##' Function to generate 3D points around a starting coordinate
-##' 
-##' @param n number of points to generate
-##' @param xyz0 starting coordinates (x, y, z)
-##' @param dist distributions of points ("uniform" for spatially uniform points, 
-##' "gamma" for gamma steps and uniform angles, "gamma+kent" for gamma steps and kent angles)
-##' @param step_par parameters for the step length distribution (needs R for uniform, shape and scale for gamma)
-##' @param angle_par parameters of the kent distribution (needs kappa, rho, hbear0, and vbear0)
+#' Function to generate 3D points around a starting coordinate
+#' 
+#' @param n number of points to generate
+#' @param xyz0 starting coordinates (x, y, z)
+#' @param dist distributions of points ("uniform" for spatially uniform points, 
+#' "gamma" for gamma steps and uniform angles, "gamma+kent" for gamma steps 
+#' and kent angles)
+#' @param step_par parameters for the step length distribution (needs R for 
+#' uniform, shape and scale for gamma)
+#' @param angle_par parameters of the kent distribution (needs kappa, rho,
+#' hbear0, and vbear0)
+#' 
+#' @return Data frame of random points and associated movement variables
+#' 
+#' @export
 pts_3D <- function(n,
                    xyz0, 
                    dist = "gamma",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/parameter_transformations.R
 \name{transform_betas}
 \alias{transform_betas}
-\title{transform betas to the parameters of gamma distribution}
+\title{Transform betas to the parameters of gamma distribution}
 \usage{
 transform_betas(beta_step, beta_logstep)
 }
@@ -11,6 +11,9 @@ transform_betas(beta_step, beta_logstep)
 
 \item{beta_logstep}{coefficient for log(step)}
 }
+\value{
+shape, scale, mean and sd
+}
 \description{
-transform betas to the parameters of gamma distribution
+Transform betas to the parameters of gamma distribution
 }

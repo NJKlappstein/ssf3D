@@ -1,8 +1,12 @@
 
-##' transform betas to the parameters of gamma distribution
-##' 
-##' @param beta_step coefficient for step
-##' @param beta_logstep coefficient for log(step)
+#' Transform betas to the parameters of gamma distribution
+#' 
+#' @param beta_step coefficient for step
+#' @param beta_logstep coefficient for log(step)
+#' 
+#' @return shape, scale, mean and sd
+#' 
+#' @export
 
 transform_betas <- function(beta_step, beta_logstep) {
   
@@ -20,10 +24,14 @@ transform_betas <- function(beta_step, beta_logstep) {
            sd = sd))
 }
 
-##' Transform shape and scale into betas and mean/sd
-##' 
-##' @param shape shape parameter
-##' @param scale scale parameter
+#' Transform shape and scale into betas and mean/sd
+#' 
+#' @param shape shape parameter
+#' @param scale scale parameter
+#' 
+#' @return beta_step, beta_logstep, mean, and sd
+#' 
+#' @export
 
 transform_par <- function(shape, scale) {
   
@@ -42,10 +50,14 @@ transform_par <- function(shape, scale) {
 }
 
 
-##' Transform mean/sd into betas and shape/scale
-##' 
-##' @param mean mean
-##' @param sd standard deviation
+#' Transform mean/sd into betas and shape/scale
+#' 
+#' @param mean mean
+#' @param sd standard deviation
+#' 
+#' @return beta_step, beta_logstep, shape, and scale
+#' 
+#' @export
 
 transform_mean <- function(mean, sd) {
   
@@ -62,6 +74,3 @@ transform_mean <- function(mean, sd) {
            shape = shape, 
            scale = scale))
 }
-
-
-

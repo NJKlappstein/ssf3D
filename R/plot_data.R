@@ -1,7 +1,11 @@
-##' Function to plot 3D location data
-##' 
-##' @param data data frame with columns: x, y, z, ID
-##' @param scale whether the x, y, z limits should all be on the same scale
+
+#' Function to plot 3D location data
+#' 
+#' @param data data frame with columns: x, y, z, ID
+#' @param scale TRUE/FALSE to indicate whether x/y/z dimensions should be 
+#' on the same scale
+#' 
+#' @export
 
 plot_data <- function(data, scale = FALSE) {
   # define plot limits
@@ -30,12 +34,12 @@ plot_data <- function(data, scale = FALSE) {
   }
   
   # plot geographic locations
-  plotly::plot_ly(data,
-                  x = ~x, y = ~y, z = ~z, 
-                  type = 'scatter3d', 
-                  mode = 'markers+lines', 
-                  marker = list(size = 1.75), 
-                  split = ~ID) %>% 
+  plot_ly(data,
+          x = ~x, y = ~y, z = ~z, 
+          type = 'scatter3d', 
+          mode = 'markers+lines', 
+          marker = list(size = 1.75), 
+          split = ~ID) %>% 
     layout(scene = list(xaxis = list(range = xlim),
                         yaxis = list(range = ylim),
                         zaxis = list(range = zlim),

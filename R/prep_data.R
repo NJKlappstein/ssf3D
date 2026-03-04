@@ -1,3 +1,4 @@
+
 #' Prepare data for fitting 3D CRWs or SSFs
 #'
 #' @param data data frame of locations with columns: ID, x,y,z, time
@@ -12,7 +13,6 @@
 #'
 #' @return data 
 #' @export
-#' 
 
 prep_data <- function(data, 
                       n_random = 25, 

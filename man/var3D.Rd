@@ -2,15 +2,23 @@
 % Please edit documentation in R/var3D.R
 \name{var3D}
 \alias{var3D}
-\title{Functions to calculate 3D variables 
-(arc size/orientation, bearings, turning angles)}
+\title{Calculate 3D variables}
 \usage{
 var3D(data)
 }
 \arguments{
 \item{data}{data frame of locs with ID, x,y,z columns}
 }
+\value{
+Data frame with columns for:
+\itemize{
+\item{d_x, d_y, d_z}{3D displacements}
+\item{step, step_xy}{step lengths in 3D and 2D}
+\item{vbear, hbear}{vertical and horizontal bearings}
+\item{vbear_star, hbear_star}{changes in bearings}
+\item{omega, delta}{geodesic variables}
+}
+}
 \description{
-Functions to calculate 3D variables 
-(arc size/orientation, bearings, turning angles)
+Get arc size/orientation, bearings, and turning angles from 3D positions
 }

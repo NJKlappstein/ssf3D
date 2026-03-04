@@ -1,9 +1,15 @@
-##' Create covariate dataframe
-##' 
-##' @param formula model formula with covariate names
-##' @param cov_data list of covariate rasters
-##' @param data location data (either matrix or dataframe with x, y)
-##' @param dim how many dimensions is the covariate data (2 or 3)
+#' Add covariates to data based on model formula
+#' 
+#' @param formula model formula with covariate names
+#' @param cov_data list of covariate rasters
+#' @param data location data (either matrix or dataframe with x, y)
+#' @param dim how many dimensions is the covariate data (2 or 3)
+#' 
+#' @return Data frame with additional covariate columns
+#' 
+#' @importFrom stats terms
+#' @importFrom terra extract
+#' @export
 
 cov_df <- function(formula, cov_data, data, dim = 2) { 
   

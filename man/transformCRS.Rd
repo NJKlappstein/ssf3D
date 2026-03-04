@@ -2,7 +2,7 @@
 % Please edit documentation in R/util.R
 \name{transformCRS}
 \alias{transformCRS}
-\title{Convert location coordinates to that of environemntal data}
+\title{Convert 2D spatial locations to new CRS}
 \usage{
 transformCRS(data, CRS, newCRS)
 }
@@ -13,6 +13,9 @@ transformCRS(data, CRS, newCRS)
 
 \item{newCRS}{new CRS}
 }
+\value{
+Data frame where x and y have been transformed to new CRS
+}
 \description{
-Convert location coordinates to that of environemntal data
+Convert 2D spatial locations to new CRS
 }

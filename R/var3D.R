@@ -1,20 +1,29 @@
-##' Function to calculate arc size (omega)
-##' 
-##' @param vbear vertical bearing
-##' @param hbear horizontal bearing
+#' Calculate arc size (omega)
+#' 
+#' @param vbear vertical bearing
+#' @param hbear horizontal bearing
+#' 
+#' @return Vector of geodesic lengths
+#' 
+#' @export
 
 calc_omega <- function(vbear, hbear) {
   omega <- acos(sin(vbear[,1]) * sin(vbear[,2]) + 
                   cos(vbear[,1]) * cos(vbear[,2]) * cos(hbear[,2] - hbear[,1]))
   
-  return(omega)}
+  return(omega)
+}
 
 
-##' Function to calculate arc size (omega)
-##' 
-##' @param omega arc size
-##' @param vbear vertical bearing
-##' @param hbear horizontal bearing
+#' Calculate arc orientation (delta)
+#' 
+#' @param omega arc size
+#' @param vbear vertical bearing
+#' @param hbear horizontal bearing
+#' 
+#' @return Vector of geodesic orientations
+#' 
+#' @export
 
 calc_delta <- function(omega, vbear, hbear) {
   delta <- atan2(sin(vbear[,2]) - cos(omega) * sin(vbear[,1]), 
@@ -22,10 +31,22 @@ calc_delta <- function(omega, vbear, hbear) {
   return(delta)
 }
 
-##' Functions to calculate 3D variables 
-##' (arc size/orientation, bearings, turning angles)
-##' 
-##' @param data data frame of locs with ID, x,y,z columns
+#' Calculate 3D variables 
+#' 
+#' Get arc size/orientation, bearings, and turning angles from 3D positions
+#' 
+#' @param data data frame of locs with ID, x,y,z columns
+#' 
+#' @return Data frame with columns for:
+#' \itemize{
+#' \item{d_x, d_y, d_z}{3D displacements}
+#' \item{step, step_xy}{step lengths in 3D and 2D}
+#' \item{vbear, hbear}{vertical and horizontal bearings}
+#' \item{vbear_star, hbear_star}{changes in bearings}
+#' \item{omega, delta}{geodesic variables}
+#' }
+#' 
+#' @export
 
 var3D <- function(data) {
   #initialise dataframe

@@ -2,7 +2,7 @@
 % Please edit documentation in R/var3D.R
 \name{calc_omega}
 \alias{calc_omega}
-\title{Function to calculate arc size (omega)}
+\title{Calculate arc size (omega)}
 \usage{
 calc_omega(vbear, hbear)
 }
@@ -11,6 +11,9 @@ calc_omega(vbear, hbear)
 
 \item{hbear}{horizontal bearing}
 }
+\value{
+Vector of geodesic lengths
+}
 \description{
-Function to calculate arc size (omega)
+Calculate arc size (omega)
 }

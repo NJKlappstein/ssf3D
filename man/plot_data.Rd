@@ -9,7 +9,8 @@ plot_data(data, scale = FALSE)
 \arguments{
 \item{data}{data frame with columns: x, y, z, ID}
 
-\item{scale}{whether the x, y, z limits should all be on the same scale}
+\item{scale}{TRUE/FALSE to indicate whether x/y/z dimensions should be 
+on the same scale}
 }
 \description{
 Function to plot 3D location data

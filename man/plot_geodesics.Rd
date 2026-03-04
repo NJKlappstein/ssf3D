@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot_geodesics.R
 \name{plot_geodesics}
 \alias{plot_geodesics}
-\title{Function to plot orthodromic arc (i.e., 3D turning angles) as pts on a sphere}
+\title{Function to plot geodesics (3D turning angles) as points on a sphere}
 \usage{
-plot_geodesics(data, color = NULL, format = "df")
+plot_geodesics(data, format = "df")
 }
 \arguments{
-\item{data}{data frame with columns: omega, delta OR a matrix of coordinates
-omega is the arc size and delta is the arc orientation}
+\item{data}{data frame with columns 'omega' (geodesic length) and
+'delta' (geodesic orientation), OR a matrix of coordinates}
 
 \item{format}{Format of data (described above). Options are "matrix" or "df"}
 }
 \description{
-Function to plot orthodromic arc (i.e., 3D turning angles) as pts on a sphere
+Function to plot geodesics (3D turning angles) as points on a sphere
 }

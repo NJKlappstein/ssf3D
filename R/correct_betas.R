@@ -1,8 +1,12 @@
-##' Correct estimated parameters for a gamma step length distribution 
-##' and (potentially) a Kent arc distribution
-##' 
-##' @param model fitted model output
-##' @param data data used to fit model
+#' Correct estimated parameters for a gamma step length distribution 
+#' and (potentially) a Kent arc distribution
+#' 
+#' @param model fitted model output, as returned by survival::clogit()
+#' @param data data used to fit model
+#' 
+#' @return Corrected model coefficients
+#' 
+#' @export
 
 correct_betas <- function(model, data) {
   # estimated betas

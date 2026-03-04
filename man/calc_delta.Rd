@@ -2,7 +2,7 @@
 % Please edit documentation in R/var3D.R
 \name{calc_delta}
 \alias{calc_delta}
-\title{Function to calculate arc size (omega)}
+\title{Calculate arc orientation (delta)}
 \usage{
 calc_delta(omega, vbear, hbear)
 }
@@ -13,6 +13,9 @@ calc_delta(omega, vbear, hbear)
 
 \item{hbear}{horizontal bearing}
 }
+\value{
+Vector of geodesic orientations
+}
 \description{
-Function to calculate arc size (omega)
+Calculate arc orientation (delta)
 }

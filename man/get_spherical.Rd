@@ -2,13 +2,17 @@
 % Please edit documentation in R/coordinate_transformations.R
 \name{get_spherical}
 \alias{get_spherical}
-\title{Function to get spherical coordinates of arcs from cartesian coordinates}
+\title{Get spherical coordinates of arcs from cartesian coordinates}
 \usage{
 get_spherical(u)
 }
 \arguments{
 \item{u}{3 column matrix of cartesian coordinates of arcs}
 }
+\value{
+Data frame with columns 'omega' (geodesic length) and 'delta'
+(geodesic orientation)
+}
 \description{
-Function to get spherical coordinates of arcs from cartesian coordinates
+Get spherical coordinates of arcs from cartesian coordinates
 }
