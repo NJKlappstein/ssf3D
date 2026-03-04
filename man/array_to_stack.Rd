@@ -13,6 +13,8 @@ array_to_stack(array, xmin, xmax, ymin, ymax, depth)
 
 \item{xmax}{Maximum x coordinate}
 
+\item{ymin}{Minimum y coordinate}
+
 \item{ymax}{Maximum y coordinate}
 
 \item{depth}{Vector of depths (z values)}

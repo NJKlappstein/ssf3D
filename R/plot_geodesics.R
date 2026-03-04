@@ -3,10 +3,6 @@
 ##' @param data data frame with columns: omega, delta OR a matrix of coordinates
 ##' omega is the arc size and delta is the arc orientation
 ##' @param format Format of data (described above). Options are "matrix" or "df"
-##' 
-
-library(plotly)
-
 plot_geodesics <- function(data, color = NULL, format = "df") {
   # grid of all points on the sphere
   border <- data.frame(omega = seq(0, pi, length.out = 250), 

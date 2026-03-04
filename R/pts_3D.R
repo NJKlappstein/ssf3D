@@ -6,10 +6,6 @@
 ##' "gamma" for gamma steps and uniform angles, "gamma+kent" for gamma steps and kent angles)
 ##' @param step_par parameters for the step length distribution (needs R for uniform, shape and scale for gamma)
 ##' @param angle_par parameters of the kent distribution (needs kappa, rho, hbear0, and vbear0)
-##' 
-
-library(dplyr)
-
 pts_3D <- function(n,
                    xyz0, 
                    dist = "gamma",

@@ -3,9 +3,6 @@
 ##' @param data data frame of locs with ID and time columns
 ##' @param units units of time (default = "hours")
 ##' @param dir calculate difference to next or previous loc? (default = "next")
-
-library(lubridate)
-
 calc_dt <- function(data, units = "hours", dir = "next") {
   #order by time and individual
   data <- data[order(data$ID, data$time),]
@@ -38,9 +35,8 @@ calc_dt <- function(data, units = "hours", dir = "next") {
 ##' @param data data frame of locs with x,y columns
 ##' @param CRS current CRS of data
 ##' @param newCRS new CRS
-
-# library(rgdal)
-
+##' 
+##' @importFrom sp SpatialPoints spTransform
 transformCRS <- function(data, CRS, newCRS) {
   
   #which rows have NAs in the location data

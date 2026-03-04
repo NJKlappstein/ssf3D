@@ -4,9 +4,7 @@
 ##' omega is the arc size and delta is the arc orientation
 ##' @param format Format of data (described above). Options are "matrix" or "df"
 ##' 
-
-library(plotly)
-
+##' @importFrom plotly plot_ly layout add_trace
 plot_bearings <- function(data, color = NULL, format = "df") {
   # grid of all points on the sphere
   border <- data.frame(omega = seq(0, pi, length.out = 250), 

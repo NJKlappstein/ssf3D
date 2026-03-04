@@ -56,7 +56,7 @@ sim_cov <- function(nx = 100, ny = 100, nz = 20, window_size = 5) {
 #' @param array Array of covariate values
 #' @param xmin Minimum x coordinate
 #' @param xmax Maximum x coordinate
-#' @paran ymin Minimum y coordinate
+#' @param ymin Minimum y coordinate
 #' @param ymax Maximum y coordinate
 #' @param depth Vector of depths (z values)
 #' 
