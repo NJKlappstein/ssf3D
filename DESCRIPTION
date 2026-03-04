@@ -1,0 +1,23 @@
+Package: ssf3D
+Type: Package
+Title: Process 3D Tracking Data For Step Selection Analysis 
+Version: 0.0.1
+Authors@R: c(
+  person(given = "Natasha",
+         family = "Klappstein",
+         role = c("aut", "cre"),
+         email = "nklappstein@dal.ca"),
+  person(given = "Théo",
+         family = "Michelot",
+         role = c("aut", "ctb")))
+Maintainer: Natasha Klappstein <nklappstein@dal.ca>
+Description: Processing three-dimensional animal tracking data, computing
+    three-dimensional movement variables (step lengths, turning angles),
+    extracting three-dimensional spatial covariates, etc. 
+    The methods are described by Klappstein et al. (2025) 
+    <doi:10.1101/2025.11.07.687274>.
+URL: https://github.com/NJKlappstein/ssf3D
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
