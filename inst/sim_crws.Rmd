@@ -1,0 +1,66 @@
+---
+title: "Simulating three-dimensional CRWs"
+author: "Natasha Klappstein, Théo Michelot, Ron Togunov, Joanna Mills Flemming"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+header-includes: \renewcommand{\baselinestretch}{1.2}
+fontsize: 12pt
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, error = FALSE, warning = FALSE,
+  comment = NA 
+)
+```
+
+```{r set-up}
+library(ssf3D)
+
+n <- 500
+set.seed(44)
+```
+
+```{r vMF}
+# simulate data from an isotropic (vMF) crw
+vMF <- sim_crw(n_locs = n, 
+               type = "vMF", 
+               step_par = c(2, 2), 
+               kappa = 10, 
+               print = FALSE)
+
+plot_data(vMF, scale = TRUE)
+plot_geodesics(vMF)
+plot_bearings(vMF)
+```
+
+```{r kent}
+# simulate data from an anisotropic (kent) crw
+kent <- sim_crw(n_locs = n, 
+                type = "kent", 
+                step_par = c(2, 2), 
+                kappa = 10, 
+                rho = 4.9, 
+                print = FALSE)
+
+plot_data(kent, scale = FALSE)
+plot_data(kent, scale = TRUE)
+plot_geodesics(kent)
+plot_bearings(kent)
+```
+
+```{r bcrw}
+bcrw <- sim_crw(n_locs = 1000,  
+                type = "bcrw", 
+                step_par = c(2, 2), 
+                kappa = 10, 
+                kappa2 = 50, 
+                print = FALSE)
+
+plot_data(bcrw, scale = TRUE)
+plot_geodesics(bcrw)
+plot_bearings(bcrw)
+
+```

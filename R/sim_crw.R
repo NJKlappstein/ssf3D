@@ -25,7 +25,8 @@ sim_crw <- function(xyz0 = c(0, 0, 0),
                     step_par,
                     kappa = NULL, 
                     rho = NULL, 
-                    kappa2 = NULL) {
+                    kappa2 = NULL, 
+                    print = TRUE) {
   
   # transform shape and scale to betas
   shape <- step_par[1]
@@ -46,7 +47,8 @@ sim_crw <- function(xyz0 = c(0, 0, 0),
                    n_zeros = 1, 
                    formula = formula, 
                    betas = betas, 
-                   pts_dist = "gamma")
+                   pts_dist = "gamma", 
+                   print = print)
     xyz$ID <- 1
   }
   
@@ -61,7 +63,8 @@ sim_crw <- function(xyz0 = c(0, 0, 0),
                    n_zeros = 10, 
                    formula = formula, 
                    betas = betas, 
-                   pts_dist = "gamma+kent")
+                   pts_dist = "gamma+kent", 
+                   print = print)
     xyz$ID <- 1
   }
   
@@ -76,7 +79,8 @@ sim_crw <- function(xyz0 = c(0, 0, 0),
                    n_zeros = 10, 
                    formula = formula, 
                    betas = betas, 
-                   pts_dist = "gamma+kent")
+                   pts_dist = "gamma+kent",
+                   print = print)
     xyz$ID <- 1
   }
   
@@ -91,7 +95,8 @@ sim_crw <- function(xyz0 = c(0, 0, 0),
                    n_zeros = 1000, 
                    formula = formula, 
                    betas = betas, 
-                   pts_dist = "gamma")
+                   pts_dist = "gamma", 
+                   print = print)
     xyz$ID <- 1
   }
   return(xyz)

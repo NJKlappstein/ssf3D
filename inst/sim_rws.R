@@ -19,7 +19,8 @@ scale <- 2
 # simulate rw data
 rw <- sim_crw(n_locs = 1000,  
                type = "rw", 
-               step_par = c(shape, scale))
+               step_par = c(shape, scale), 
+              print = FALSE)
 
 plot_data(rw)
 plot_data(rw, scale = TRUE)

@@ -18,10 +18,12 @@ transform_betas <- function(beta_step, beta_logstep) {
   mean <- shape * scale
   sd <- sqrt(shape * scale^2)
   
-  return(c(shape = shape, 
-           scale = scale, 
-           mean = mean, 
-           sd = sd))
+  par <- c("shape" = as.numeric(shape), 
+           "scale" = as.numeric(scale), 
+           "mean" = as.numeric(mean), 
+           "sd" = as.numeric(sd))
+  
+  return(par)
 }
 
 #' Transform shape and scale into betas and mean/sd

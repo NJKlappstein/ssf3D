@@ -11,7 +11,8 @@ sim_crw(
   step_par,
   kappa = NULL,
   rho = NULL,
-  kappa2 = NULL
+  kappa2 = NULL,
+  print = TRUE
 )
 }
 \arguments{

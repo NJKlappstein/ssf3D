@@ -27,27 +27,27 @@ library(survival) # to fit the SSF
 
 ## Data
 
-We start from a three-dimensional movement track, which contains x/y/z coordinates at regular time intervals. Here, we do not cover possible pre-processing steps, for example to obtain temporally regular positions using interpolation or a state-space model. The data frame also has columns for `ID` (track identifier) and `time`.
+We start from a three-dimensional movement track, which contains x/y/z coordinates at regular time intervals. Here, we do not cover possible pre-processing steps, but note that this is a discrete-time model that assumes regular time intervals between locations. The data frame also has columns for `ID` (track identifier) and `time`.
 
 ```{r track-data}
 # Load tracking data
-tracks <- read.csv("sim_data.csv")
+tracks <- read.csv("../data/sim_data.csv")
 tracks$time <- ymd_hms(tracks$time)
 head(tracks)
 ```
 
-We also have a three-dimensional environmental variable. This is simulated data, but in a real analysis, this could be something like wind, temperature, or any other spatial variable measured over a three-dimensional grid. In two dimensions, spatial data is typically stored as in raster format. Here, we use a raster stack from the terra package, where the layers range across the third (vertical) dimension. We load the raster stack from a tif file, and set the `depth` attribute to the vertical coordinates of the raster layer (used later to extract).
+We also load a three-dimensional environmental variable. This is simulated data, but in a real analysis, this could be something like wind, temperature, or any other spatial variable measured over a three-dimensional grid. In two dimensions, spatial data is typically stored as in raster format. Here, we use a raster stack from the terra package, where the layers range across the third (vertical) dimension. We load the raster stack from a tif file, and set the `depth` attribute to the vertical coordinates of the raster layer (used later to extract).
 
 ```{r cov-data}
 # Load spatial covariate data
-r_stack <- rast("3D_raster.tif")
+r_stack <- rast("../data/3D_raster.tif")
 depth(r_stack) <- 1:nlyr(r_stack)
 r_stack
 ```
 
 ## Generate random points
 
-We use the function `pred_data()` from ssf3D to generate random points for the step selection analysis. This is analogous to the random (or "control") points used in two dimensions, but here they are three-dimensional points. We specify `distr = "gamma"` to indicate that distances between the start point of each step and the random points follow a gamma distribution (for which parameters are estimated from the observed data). By default, random points are generated with uniform bearings.
+We use the function `prep_data()` from ssf3D to generate random points for the step selection analysis. This is analogous to the random (or "control") points used in two dimensions, but here they are three-dimensional points. We specify `distr = "gamma"` to indicate that distances between the start point of each step and the random points follow a gamma distribution (for which parameters are estimated from the observed data). By default, random points are generated with uniform bearings Importantly, this function assumes that the data contains a column called `ID`, which will be used to determine independent segments of locations (i.e., for which to calculate movement). Therefore, if you have multiple track segements/bursts per individual, you should ensure that `ID` is used to differentiate these. 
 
 ```{r prep-data}
 # Generate random points and get movement variables
@@ -57,7 +57,7 @@ data[1:5, 1:6]
 
 The new data frame has columns for `stratum`, which groups each observed position with matched random points, and `obs`, which is 1 for observed positions and 0 for random points.
 
-In addition to generating random points, the function `prep_data()` also calculated all movement variables required for the analysis. In particular, `step` is the step length, `omega` is the geodesic length, and `delta` is the geodesic orientation. We will use those three variables later to model step lengths with a gamma distribution and the geodesics with a Kent distribution.
+In addition to generating random points, the function `prep_data()` also calculated all movement variables required for the analysis. In particular, `step` is the step length, `omega` is the geodesic length, and `delta` is the geodesic orientation. We will use those three variables later to model step lengths with a gamma distribution and the geodesics with a Kent distribution. Note that this function also has an argument `ssf` which can be set to FALSE; in this case, no random points will be generated and the function will simply calculate the movement variables of observed positions. 
 
 ## Get covariates
 
@@ -94,17 +94,40 @@ The fitted model object includes estimated coefficients and standard errors.
 ## Model outputs
 
 ### Habitat selection
+We have one habitat covariate in our model (`cov`). We can interpret its coefficient as relative selection strength; its effect is multiplicative, such that taking the exponential of the estimated $\beta$ indicates how many times more likely the animal is to take a step if the covariate increases by 1. 
+```{r rss1}
+exp(fit$coefficients["cov"])
+```
 
+This indicates a positive effect, where the animal is approximately 26 times more likely to take a step with a value of 1 compared to 0 (holding all else equal). The variable `cov` has the range (0, 1) so this corresponds to a change over the entire range. We can also visualise this relationship by using the function `plot_rss()` (note that this will plot relative to 0, by default).
 
+```{r rss2}
+plot_rss(model = fit, data = data, variable = "cov", log = FALSE)
+```
 
 ### Movement parameters
 
-Like in two dimensions, the interpretation of movement parameters is not straightforward when random points are not spatially uniform. Indeed, the estimated parameters measure a deviation between the distribution of the random points and the distribution of observed movement variables. The ssf3D package includes a function to correct the estimates to account for the distribution of random points, and a function to obtain the estimated parameters of the implied gamma distribution.
+Like in two dimensions, the interpretation of movement parameters is not straightforward when random points are not spatially uniform. In this case, the estimated parameters measure a deviation between the distribution of the random points and the distribution of observed movement variables. The ssf3D package includes a function to correct the estimates to account for the distribution of random points, and a function to obtain the estimated parameters of the implied gamma distribution. There is also a function to plot the estimated gamma distribution over a histogram of the observed step lengths.
 
 ```{r get-params}
+# correct coefficients (betas)
 beta <- correct_betas(model = fit, data = data)
 beta
 
-gamma_par <- transform_betas(beta_step = beta["step"], beta_logstep = beta["log(step)"])
-gamma_par
+# transform (corrected) betas to parametres of the gamma distribution
+transform_betas(beta["step"], beta["log(step)"])
+
+# plot estimated distribution
+plot_gamma(model = fit, data = data)
 ```
+
+Since we sampled bearings uniformly, there is no correction to be done to the estimated parameters and they directly translate to $\kappa$ and $\rho$. Note that `correct_betas()` would have done this correction, if needed. 
+
+```{r geodesics}
+# estimated kappa 
+beta["cos(omega)"]
+
+# estimated rho 
+beta["omega_delta"]
+```
+
