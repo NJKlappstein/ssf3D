@@ -4,13 +4,13 @@
 \alias{plot_data}
 \title{Function to plot 3D location data}
 \usage{
-plot_data(data, scale = FALSE)
+plot_data(data, scale = TRUE)
 }
 \arguments{
 \item{data}{data frame with columns: x, y, z, ID}
 
 \item{scale}{TRUE/FALSE to indicate whether x/y/z dimensions should be 
-on the same scale}
+on the same scale (default = TRUE)}
 }
 \description{
 Function to plot 3D location data

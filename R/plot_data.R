@@ -3,11 +3,12 @@
 #' 
 #' @param data data frame with columns: x, y, z, ID
 #' @param scale TRUE/FALSE to indicate whether x/y/z dimensions should be 
-#' on the same scale
+#' on the same scale (default = TRUE)
 #' 
 #' @export
+#' @importFrom plotly plot_ly layout add_trace
 
-plot_data <- function(data, scale = FALSE) {
+plot_data <- function(data, scale = TRUE) {
   # define plot limits
   xlim <- c(min(data$x), max(data$x))
   ylim <- c(min(data$y), max(data$y))

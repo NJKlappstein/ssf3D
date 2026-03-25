@@ -5,6 +5,7 @@
 #' @param format Format of data (described above). Options are "matrix" or "df"
 #' 
 #' @export
+#' @importFrom plotly plot_ly layout add_trace
 
 plot_geodesics <- function(data, format = "df") {
   # grid of all points on the sphere

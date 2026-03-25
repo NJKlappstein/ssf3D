@@ -8,6 +8,7 @@
 #' 
 #' @return density or log density
 #' @importFrom Directional kent.logcon
+#' @importFrom plotly plot_ly layout add_trace
 
 dKent <- function(kappa, rho, omega, delta, log = FALSE) {
   # calculate log density
