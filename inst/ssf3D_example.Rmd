@@ -47,7 +47,7 @@ r_stack
 
 ## Generate random points
 
-We use the function `prep_data()` from ssf3D to generate random points for the step selection analysis. This is analogous to the random (or "control") points used in two dimensions, but here they are three-dimensional points. We specify `distr = "gamma"` to indicate that distances between the start point of each step and the random points follow a gamma distribution (for which parameters are estimated from the observed data). By default, random points are generated with uniform bearings Importantly, this function assumes that the data contains a column called `ID`, which will be used to determine independent segments of locations (i.e., for which to calculate movement). Therefore, if you have multiple track segements/bursts per individual, you should ensure that `ID` is used to differentiate these. 
+We use the function `prep_data()` from ssf3D to generate random points for the step selection analysis. This is analogous to the random (or "control") points used in two dimensions, but here they are three-dimensional points. We specify `distr = "gamma"` to indicate that distances between the start point of each step and the random points follow a gamma distribution (for which parameters are chosen based on the observed data). By default, random points are generated with uniform bearings. The distribution of random points does not represent a strict assumption about the movement of the animals, because movement parameters will be estimated later, but the gamma distribution is simply a way to improve the numerical performance (see Michelot et al., 2024, "\emph{Understanding step selection analysis through numerical integration}", for further details). Importantly, `prep_data()` assumes that the data contains a column called `ID`, which is used to separate independent segments of locations (i.e., between which movement should not be calculated). Therefore, if we have multiple track segements/bursts per individual, we should ensure that `ID` is used to differentiate these.
 
 ```{r prep-data}
 # Generate random points and get movement variables
@@ -94,12 +94,12 @@ The fitted model object includes estimated coefficients and standard errors.
 ## Model outputs
 
 ### Habitat selection
-We have one habitat covariate in our model (`cov`). We can interpret its coefficient as relative selection strength; its effect is multiplicative, such that taking the exponential of the estimated $\beta$ indicates how many times more likely the animal is to take a step if the covariate increases by 1. 
+We have one habitat covariate in our model (`cov`). We can interpret its coefficient as relative selection strength; its effect is multiplicative, such that taking the exponential of the estimated $\beta$ indicates how many times more likely the animal is to take a step if the covariate increases by 1 (keeping everything else constant). 
 ```{r rss1}
 exp(fit$coefficients["cov"])
 ```
 
-This indicates a positive effect, where the animal is approximately 26 times more likely to take a step with a value of 1 compared to 0 (holding all else equal). The variable `cov` has the range (0, 1) so this corresponds to a change over the entire range. We can also visualise this relationship by using the function `plot_rss()` (note that this will plot relative to 0, by default).
+This indicates a positive effect, where the animal is approximately 36 times more likely to take a step with a value of 1 compared to 0 (holding all else equal). The variable `cov` has the range (0, 1) so this corresponds to a change over the entire range. We can also visualise this relationship by using the function `plot_rss()` (note that this will plot relative to 0, by default).
 
 ```{r rss2}
 plot_rss(model = fit, data = data, variable = "cov", log = FALSE)
