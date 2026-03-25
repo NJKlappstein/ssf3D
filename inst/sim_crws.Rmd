@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+In this document, we illustrate several three-dimensional random walk models using simulations.
+
 ```{r set-up}
 library(ssf3D)
 
@@ -23,18 +25,43 @@ n <- 500
 set.seed(44)
 ```
 
+## Isotropic correlated random walk
+
+We first consider a correlated random walk where directional changes follow the isotropic von Mises-Fisher distribution. In this model, there is no mechanism to favour horizontal movement to vertical movement. We choose three parameters: the shape and scale of the gamma distribution of step lengths (through `step_par`), and the concentration of the von Mises-Fisher distribution (through `kappa`). 
+
 ```{r vMF}
-# simulate data from an isotropic (vMF) crw
-vMF <- sim_crw(n_locs = n, 
+# Simulate data from an isotropic (vMF) CRW
+track_vMF <- sim_crw(n_locs = n, 
                type = "vMF", 
                step_par = c(2, 2), 
                kappa = 10, 
                print = FALSE)
-
-plot_data(vMF, scale = TRUE)
-plot_geodesics(vMF)
-plot_bearings(vMF)
 ```
+
+The ssf3D package provides several functions to visualise three-dimensional data.
+
+1. `plot_data()`: A plot of the simulated three-dimensional positions shows a track with strong directional persistence, as expected based on the von Mises-Fisher distribution. Because of the isotropic model, the track displays large vertical movements.
+
+2. `plot_geodesics()`: A plot of the geodesics shows that they are concentrated near the top of the unit sphere. When visualising geodesics, the top of the sphere corresponds to perfect directional persistence, so the observed distribution reflects the directional persistence of the correlated random walk. Isotropy means that the distribution of geodesics is symmetric around the top of the sphere (no preferred "orientation" for the geodesics).
+
+3. `plot_bearings()`: A plot of the simulated bearings shows points that are roughly uniform on the surface of a unit sphere, again illustrating the lack of a preferred direction in this model.
+
+```{r vMF2}
+# Plot simulated x/y/z positions
+plot_data(track_vMF, scale = TRUE)
+
+# Plot simulated geodesics on unit sphere
+plot_geodesics(track_vMF)
+
+# Plot simulated bearings on unit sphere
+plot_bearings(track_vMF)
+```
+
+## Anisotropic (Kent) correlated random walk
+
+We now turn to a correlated random walk where the geodesics for directional changes are generated from a Kent distribution. This model has four parameters: the shape and scale of the gamma distribution of step lengths (as before), and the concentration `kappa` and ovalness `rho` of the Kent distribution.
+
+As before, we create plots of the simulated three-dimensional track, bearings, and geodesics. These reveal less vertical movement than in the previous example. The track itself is "flatter", the distribution of geodesics is stretched rather than symmetric, and the bearings are more concentrated along the horizontal dimensions.
 
 ```{r kent}
 # simulate data from an anisotropic (kent) crw
@@ -45,11 +72,16 @@ kent <- sim_crw(n_locs = n,
                 rho = 4.9, 
                 print = FALSE)
 
-plot_data(kent, scale = FALSE)
 plot_data(kent, scale = TRUE)
 plot_geodesics(kent)
 plot_bearings(kent)
 ```
+
+## Biased correlated random walk
+
+As a final example, we simulate from a random walk that combines directional persistence and avoidance of vertical movement steps. The distribution of angles depends on two parameters: `kappa` measures the strength of directional persistence (as in the previous correlated random walks), and `kappa2` measures the strength of the avoidance of vertical bearings.
+
+Plots of the simulated data show very strong anisotropy, with much more movement in the horizontal dimensions (similar to a lot of real animal movement).
 
 ```{r bcrw}
 bcrw <- sim_crw(n_locs = 1000,  
@@ -62,5 +94,4 @@ bcrw <- sim_crw(n_locs = 1000,
 plot_data(bcrw, scale = TRUE)
 plot_geodesics(bcrw)
 plot_bearings(bcrw)
-
 ```
