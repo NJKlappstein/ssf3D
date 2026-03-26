@@ -1,4 +1,4 @@
-R package to fit three-dimensional step selection functions (SSFs) to animal tracking data
+**R package to fit three-dimensional step selection functions (SSFs) to animal tracking data**
 
 This package contains tools to process three-dimensional tracking data for use in SSFs, based on the work in Klappstein et al. (2025). 
 
