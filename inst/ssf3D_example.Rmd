@@ -124,7 +124,7 @@ plot_gamma(model = fit, data = data)
 Since we sampled bearings uniformly, there is no correction to be done to the estimated parameters and they directly translate to $\kappa$ and $\rho$. Note that `correct_betas()` would have done this correction, if needed. 
 
 ```{r geodesics}
-# estimated kappa 
+# estimated kappa (concentration)
 beta["cos(omega)"]
 
 # estimated rho 
